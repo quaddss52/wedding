@@ -1,118 +1,265 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import { BiGift } from "react-icons/bi";
+import { useState } from "react";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [days, setDays] = useState<number>();
+  const [hours, setHours] = useState<number>();
+  const [minutes, setMinutes] = useState<number>();
+  const [seconds, setSeconds] = useState<number>();
+  const [first, setFirst] = useState<boolean>(false);
+  const [second, setSecond] = useState<boolean>(true);
+  const [third, setThird] = useState<boolean>(false);
+
+  const targetDate = new Date("June 29, 2023 00:00:00").getTime();
+
+  const countdown = setInterval(() => {
+    const now = new Date().getTime();
+
+    const timeRemaining = targetDate - now;
+
+    const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+    setDays(days);
+    const hours = Math.floor(
+      (timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    setHours(hours);
+    const minutes = Math.floor(
+      (timeRemaining % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    setMinutes(minutes);
+    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+    setSeconds(seconds);
+    if (timeRemaining < 0) {
+      clearInterval(countdown);
+      console.log("Countdown finished!");
+    }
+    return;
+  }, 1000);
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <div className="h-screen w-screen hero p-12 text-white">
+        <div className="flex w-full justify-center items-center md:mt-5">
+          <Image src="/icons/logo.svg" alt="logo" width={70} height={70} />
+        </div>
+
+        <div className="w-full flex mt-8 justify-center items-center">
+          <div className="md:w-[50%] md:flex md:gap-[5rem] md:items-center md:justify-center justify-center">
+            <div className="hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[18px]">
+              <p className=" ">Home</p>
+            </div>
+            <div className="hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[18px]">
+              <p className="">Gallery</p>
+            </div>
+            <div className="hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[18px]">
+              <p className="">Gifting</p>
+            </div>
+            <div className="hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[18px]">
+              <p className="">RSVP</p>
+            </div>
+            <div className="hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[18px]">
+              <BiGift className="text-xl" />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full h-[80%] flex flex-col gap-8 justify-center items-center">
+          <p className="text-[150px] font-butterfly-kids animate-pulse">
+            Chronicles Of Forever
+          </p>
+
+          <div className="w-fit h-fit text-black  hover:scale-150  hover:text-white px-9 cursor-pointer hover:bg-[#7F9B2D] py-2 bg-white rounded-lg ease-in-out duration-500">
+            <p className="  ">RSVP</p>
+          </div>
         </div>
       </div>
+      <div className="w-full h-fit p-12">
+        <div className="w-full flex items-center justify-center">
+          <p className="text-[50px] font-bold ">Once Upon A Time</p>
+        </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
+        <div className="flex lg:flex-row flex-col items-center w-full justify-center ">
+          <div className="lg:w-[300px] lg:h-[300px] z-10">
+            <div className="lg:w-[300px] lg:h-[300px] rounded-full bg-red-200 truncate z-10 ">
+              <Image
+                src="/images/groom1.jpeg"
+                alt="logo"
+                width={300}
+                height={300}
+                // objectFit="cover"
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <p className="lg:text-[30px] font-butterfly-kids text-center">
+              A Boy
+            </p>
+          </div>
+          <Image
+            src="/icons/line1.svg"
+            alt="logo"
+            width={500}
+            height={300}
+            objectFit="cover"
+            className="object-cover mx-[-15px]  animate-pulse "
+          />
+          <div className="lg:w-[300px] lg:h-[300px z-10">
+            <div className="lg:w-[300px] lg:h-[300px] rounded-full bg-red-200 truncate ">
+              <Image
+                src="/images/bride1.jpeg"
+                alt="logo"
+                width={300}
+                height={300}
+                // objectFit="fill"
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <p className="lg:text-[30px] font-butterfly-kids text-center">
+              Met A Girl
+            </p>
+          </div>
+        </div>
         <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          src="/icons/line2.svg"
+          alt="logo"
+          width={500}
+          height={100}
+          objectFit="cover"
+          className="object-cover ml-[39%] mt-[-60px] animate-pulse "
         />
+        <div className="lg:ml-[35%] lg:w-[400px] lg:h-[400px]">
+          <div className="lg:w-[400px] lg:h-[400px] rounded-full bg-red-200 truncate z-10  ">
+            <Image
+              src="/images/couple1.jpeg"
+              alt="logo"
+              width={400}
+              height={400}
+              // objectFit="cover"
+              className=" w-full h-full  "
+            />
+          </div>
+          <p className="lg:text-[30px] font-butterfly-kids text-center ">
+            And They Fell In Love
+          </p>
+        </div>
+
+        <div className="w-full ">
+          <p className="text-[50px] text-center font-bold mb-1 mt-12 ">
+            Come Dance With Us...
+          </p>
+          <p className="text-[30px] text-center font-butterfly-kids ">
+            On The 29th Of July
+          </p>
+          <div className="w-full flex flex-col items-center justify-center ">
+            <div className="flex items-center gap-5">
+              <p className="lg:text-[100px] font-bold text-[#7F9B2D]  ">
+                {" "}
+                {days} :
+              </p>
+              <p className="lg:text-[100px] font-bold text-[#7F9B2D]  ">
+                {" "}
+                {hours} :
+              </p>
+              <p className="lg:text-[100px] font-bold text-[#7F9B2D]  ">
+                {" "}
+                {minutes} :
+              </p>
+              <p className="lg:text-[100px] font-bold text-[#7F9B2D]  ">
+                {" "}
+                {seconds}
+              </p>
+            </div>
+            <div className="flex items-center lg:gap-[7rem]">
+              <p className="  "> days</p>
+              <p className="  ">hours</p>
+              <p className="  ">minutes</p>
+              <p className="  ">seconds </p>
+            </div>
+            <p className="text-[30px] text-center font-butterfly-kids my-5 ">
+              At The Queens Park Event Center
+            </p>
+            <p className="text-[18px] lg:w-[40%] text-center font-semibold ">
+              Water Corporation Drive/Trinity Avenue, Off Ligali Ayorinde
+              Street, Victoria Island, Lagos
+            </p>
+          </div>
+          <div className="w-full flex justify-center  items-center mt-12">
+            <div className="lg:flex lg:flex-row lg:items-center gap-5 lg:justify-center lg:w-[70%] my-12">
+              <div
+                className={
+                  first
+                    ? "w-[50%] h-[300px] rounded-xl z-10 truncate mb-12 cursor-pointer mx-[-20px] ease-in-out duration-500 drop-shadow-xl"
+                    : "w-[25%] h-[300px] rounded-xl truncate mx-[-20px] cursor-pointer  ease-in-out duration-500"
+                }
+                onClick={() => {
+                  setFirst(true);
+                  setSecond(false);
+                  setThird(false);
+                }}
+              >
+                <Image
+                  src="/images/couple2.jpeg"
+                  alt="logo"
+                  width={200}
+                  height={1}
+                  // objectFit="cover"
+                  className="object-cover  w-full "
+                />
+              </div>
+              <div
+                className={
+                  second
+                    ? "w-[50%] h-[300px] rounded-xl z-10 truncate mb-12 mx-[-20px] cursor-pointer  ease-in-out duration-500 drop-shadow-md"
+                    : "w-[25%] h-[300px] rounded-xl cursor-pointer  truncate mx-[-20px] ease-in-out duration-500"
+                }
+                onClick={() => {
+                  setSecond(true);
+                  setFirst(false);
+                  setThird(false);
+                }}
+              >
+                <Image
+                  src="/images/couple3.jpeg"
+                  alt="logo"
+                  width={200}
+                  height={1}
+                  // objectFit="cover"
+                  className="object-cover  w-full drop-shadow-md"
+                />
+              </div>
+              <div
+                className={
+                  third
+                    ? "w-[50%] h-[300px] rounded-xl z-10 truncate mb-12 cursor-pointer  mx-[-20px] ease-in-out duration-500 drop-shadow-xl"
+                    : "w-[25%] h-[300px] rounded-xl truncate mx-[-20px] cursor-pointer  ease-in-out duration-500"
+                }
+                onClick={() => {
+                  setSecond(false);
+                  setFirst(false);
+                  setThird(true);
+                }}
+              >
+                <Image
+                  src="/images/couple4.jpeg"
+                  alt="logo"
+                  width={200}
+                  height={1}
+                  // objectFit="cover"
+                  className="object-cover  w-full "
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full flex justify-center items-center">
+            <div className="w-fit h-fit text-white  hover:scale-150  hover:text-white px-9 cursor-pointer hover:bg-[#7F9B2D] py-2 bg-black rounded-lg ease-in-out duration-500">
+              <p className="font-semibold  ">RSVP</p>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </>
+  );
 }

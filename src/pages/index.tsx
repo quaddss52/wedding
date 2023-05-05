@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import { BiGift } from "react-icons/bi";
 import { useState } from "react";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -41,33 +42,15 @@ export default function Home() {
   }, 1000);
   return (
     <>
-      <div className="h-screen w-screen hero p-12 text-white">
+      <div className="h-screen w-screen hero p-12 text-white ">
         <div className="flex w-full justify-center items-center md:mt-5">
           <Image src="/icons/logo.svg" alt="logo" width={70} height={70} />
         </div>
 
-        <div className="w-full flex mt-8 justify-center items-center">
-          <div className="md:w-[50%] md:flex md:gap-[5rem] md:items-center md:justify-center justify-center">
-            <div className="hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[18px]">
-              <p className=" ">Home</p>
-            </div>
-            <div className="hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[18px]">
-              <p className="">Gallery</p>
-            </div>
-            <div className="hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[18px]">
-              <p className="">Gifting</p>
-            </div>
-            <div className="hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[18px]">
-              <p className="">RSVP</p>
-            </div>
-            <div className="hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[18px]">
-              <BiGift className="text-xl" />
-            </div>
-          </div>
-        </div>
+        <Navbar />
 
         <div className="w-full h-[80%] flex flex-col gap-8 justify-center items-center">
-          <p className="text-[150px] font-butterfly-kids animate-pulse">
+          <p className="md:text-[100px] xl:text-[150px] font-butterfly-kids animate-pulse">
             Chronicles Of Forever
           </p>
 
@@ -132,7 +115,7 @@ export default function Home() {
         <div className="lg:ml-[35%] lg:w-[400px] lg:h-[400px]">
           <div className="lg:w-[400px] lg:h-[400px] rounded-full bg-red-200 truncate z-10  ">
             <Image
-              src="/images/couple1.jpeg"
+              src="/images/couple2.jpeg"
               alt="logo"
               width={400}
               height={400}

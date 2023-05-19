@@ -10,10 +10,18 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerBody,
 } from "@chakra-ui/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/css/bundle";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { BiGift } from "react-icons/bi";
+import { useRouter } from "next/router";
 
 function gallery() {
   const [imageId, setImageId] = useState<number>();
@@ -140,16 +148,123 @@ function gallery() {
       src: "/images/couple4.jpeg",
     },
   ];
+  const {
+    isOpen: isDOpen,
+    onOpen: onDOpen,
+    onClose: onDClose,
+  } = useDisclosure();
+  const router = useRouter();
   return (
-    <div className="p-12">
-      <div className="flex w-full justify-center items-center md:mt-5">
-        <Image src="/icons/logoLight.svg" alt="logo" width={70} height={70} />
+    <div className="lg:p-12">
+      <div className=" bg-white lg:bg-transparent flex flex-row justify-between items-center lg:justify-none p-5 lg:p-0 lg:flex-col ">
+        <div className="flex w-full lg:justify-center items-center md:mt-5">
+          <div className="hidden lg:block">
+            <Image
+              src="/icons/logoLight.svg"
+              alt="logo"
+              width={70}
+              height={70}
+            />
+          </div>
+          <div className="block lg:hidden">
+            <Image
+              src="/icons/logoLight.svg"
+              alt="logo"
+              width={50}
+              height={50}
+            />
+          </div>
+        </div>
+        <div className="hidden lg:block">
+          <NavbarLight />
+        </div>
+        <div className="block lg:hidden">
+          <RxHamburgerMenu className="text-black text-xl" onClick={onDOpen} />
+          <Drawer
+            isOpen={isDOpen}
+            placement="right"
+            size="full"
+            onClose={onDClose}
+          >
+            <DrawerOverlay />
+            <DrawerContent>
+              <DrawerCloseButton />
+
+              <DrawerBody>
+                <div className="flex w-full h-full justify-center items-center">
+                  <div className="w-full flex flex-col gap-5 mt-8 justify-center items-center">
+                    <div className=" flex flex-col gap-5 items-center font-semibold  justify-center">
+                      <div
+                        className={
+                          router.asPath === "/"
+                            ? "text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[25px]"
+                            : "hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[25px]"
+                        }
+                        onClick={() => {
+                          router.push("/");
+                        }}
+                      >
+                        <p className=" ">Home</p>
+                      </div>
+                      <div
+                        className={
+                          router.asPath === "/gallery"
+                            ? "text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[25px]"
+                            : "hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[25px]"
+                        }
+                        onClick={() => {
+                          router.push("/gallery");
+                        }}
+                      >
+                        <p className="">Gallery</p>
+                      </div>
+                      <div
+                        className={
+                          router.asPath === "/gifting"
+                            ? "text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[25px]"
+                            : "hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[25px]"
+                        }
+                        onClick={() => {
+                          router.push("/gifting");
+                        }}
+                      >
+                        <p className="">Gifting</p>
+                      </div>
+                      <div
+                        className={
+                          router.asPath === "/rsvp"
+                            ? "text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[25px]"
+                            : "hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[25px]"
+                        }
+                        onClick={() => {
+                          router.push("/rsvp");
+                        }}
+                      >
+                        <p className="">RSVP</p>
+                      </div>
+                      <div
+                        className={
+                          router.asPath === "/giftPage"
+                            ? "text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[25px]"
+                            : "hover:text-[#7F9B2D] ease-in-out duration-500 cursor-pointer text-[25px]"
+                        }
+                        onClick={() => {
+                          router.push("/giftPage");
+                        }}
+                      >
+                        <BiGift className="text-xl" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
+        </div>
       </div>
 
-      <NavbarLight />
-
-      <div className="mt-8">
-        <div className="grid grid-cols-4 gap-[1rem]">
+      <div className="mt-8 p-5 lg:p-0">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-[1rem]">
           {images &&
             images.map((item, index) => (
               <div

@@ -8,3 +8,11 @@
   background-size: cover;
   background-position: center top;
 }
+@media screen and (max-width: 912px) {
+  .heroP {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)),
+      url("/images/couple2.jpeg");
+    background-size: cover;
+    background-position: center top;
+  }
+}

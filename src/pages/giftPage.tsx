@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { BiGift, BiMinus } from "react-icons/bi";
-import { BsPlus } from "react-icons/bs";
+import { BsPlus, BsTrash } from "react-icons/bs";
 import {
   useDisclosure,
   Drawer,
@@ -143,14 +143,11 @@ function giftPage() {
           {gift &&
             gift.map((item, index) => (
               <div
-                className="w-full h-[100px] border-[1px] rounded-xl px-8 py-3 flex border-[#7F9B2D] flex items-center "
+                className="w-full h-fit gap-3 border-[1px] rounded-xl lg:px-8 px-3 py-3 flex border-[#7F9B2D] flex lg:flex-row flex-col lg:items-center "
                 key={index}
-                onClick={() => {
-                  router.push(`/checkout/id`);
-                }}
               >
-                <div className="w-[70%] h-full flex items-center gap-5">
-                  <div className="w-[10%] h-full cursor-pointer">
+                <div className=" w-full lg:w-[70%] h-full flex items-start justify-between lg:justify-start lg:items-center gap-5">
+                  <div className="w-[20%] lg:w-[10%] h-full cursor-pointer">
                     <div className="w-full rounded-xl h-full bg-red-200 truncate">
                       <Image
                         src="/images/groom1.jpeg"
@@ -167,18 +164,20 @@ function giftPage() {
                     <p className="text-[#7F9B2D] font-semibold">{item.price}</p>
                   </div>
                 </div>
-                <div className="w-[30%] flex items-center justify-between">
-                  <div className="w-fit h-fit px-12 py-3 rounded-lg bg-[#7F9B2D] cursor-pointer">
-                    <p className="text-white">Checkout</p>
+                <div className="w-full lg:w-[30%] flex items-center justify-between">
+                  <div className="w-fit h-fit lg:px-12 px-3 py-2 lg:py-3 rounded-lg border-[#7F9B2D] border-[1px] text-[#7F9B2D] flex gap-2 items-center cursor-pointer">
+                    <BsTrash className="text-[#7F9B2D] text-xl" />
+                    <p className="font-semibold">Remove</p>
                   </div>
 
-                  <div className="">
+                  <div className="hidden lg:block">
                     <p className="font-semibold">1 item</p>
                   </div>
                   <div className="flex items-center gap-5">
                     <div className="w-fit h-fit px-3 py-3 rounded-lg bg-[#7F9B2D] cursor-pointer">
                       <BiMinus className="text-white" />
                     </div>
+                    <p className="font-semibold lg:hidden">1</p>
                     <div className="w-fit h-fit px-3 py-3 rounded-lg bg-[#7F9B2D] cursor-pointer">
                       <BsPlus className="text-white" />
                     </div>
@@ -186,6 +185,19 @@ function giftPage() {
                 </div>
               </div>
             ))}
+        </div>
+        <div className="my-4 p-5 lg:p-0 flex justify-end">
+          <p className="text-[16px] font-semibold">Total: ₦ 40,000</p>
+        </div>
+        <div className="w-full p-5 flex lg:p-0 lg:justify-end">
+          <div
+            className="w-full lg:w-[200px] h-fit py-3 flex items-center justify-center cursor-pointer rounded-lg bg-[#7F9B2D]"
+            onClick={() => {
+              router.push(`/checkout/id`);
+            }}
+          >
+            <p className="text-white">Checkout</p>
+          </div>
         </div>
       </div>
     </>
